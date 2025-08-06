@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "428e9796-7a0f-433e-ba30-a31d670de739",
+		"name": "GoRest_API_Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25289556",
+		"_collection_link": "https://crimson-crater-859274.postman.co/workspace/Pioneer_Aggregator_Login~a6ee30af-a5dd-4215-b3dc-a37dde471052/collection/25289556-428e9796-7a0f-433e-ba30-a31d670de739?action=share&source=collection_link&creator=25289556"
+	},
+	"item": [
+		{
+			"name": "Create_New_User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ID is numeric\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.be.a('number');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "cebdfd73dbde0e79e6e46656cf55930b084d9e3bc8d6bf347c7b5db02bd1ac45",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Vijay QA\",\r\n  \"gender\": \"male\",\r\n  \"email\": \"vijayjeyaram.automations_03@gmail.com\",\r\n  \"status\": \"active\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify_First_User_Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let users = pm.response.json();\r",
+							"\r",
+							"pm.test(\"First user status is active or inactive\", function () {\r",
+							"    pm.expect([\"active\", \"inactive\"]).to.include(users[0].status);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
